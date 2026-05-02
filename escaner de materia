@@ -1,0 +1,30 @@
+import time
+
+# Banco de dados técnico (Propriedades dos Metais Alcalinos)
+# Densidade em g/cm3 e Ponto de Fusão em Celsius
+elementos_alcalinos = {
+    "Litio": {"simbolo": "Li", "densidade": 0.534, "fusao": 180.5},
+    "Sodio": {"simbolo": "Na", "densidade": 0.968, "fusao": 97.7},
+    "Potassio": {"simbolo": "K", "densidade": 0.89, "fusao": 63.5},
+    "Rubidio": {"simbolo": "Rb", "densidade": 1.53, "fusao": 39.3},
+    "Cesio": {"simbolo": "Cs", "densidade": 1.93, "fusao": 28.4},
+}
+
+def escanear_alcalinos(densidade_detectada, fusao_detectada):
+    print("\n[ESCANER] Analisando assinaturas atômicas de Metais Alcalinos...")
+    time.sleep(1) # Simulando o tempo de processamento do sensor
+    
+    for nome, dados in elementos_alcalinos.items():
+        # Margem de erro de 5% para o sensor físico
+        if abs(dados["densidade"] - densidade_detectada) < 0.05:
+            return f"ALERTA: Elemento identificado! {nome} ({dados['simbolo']})"
+    
+    return "Nenhum Metal Alcalino correspondente nesta amostra."
+
+# --- TESTE DO ESCANER ---
+print("--- ESCÂNER DE MATÉRIA v1.0 (Modulo Alcalinos) ---")
+d_sensor = float(input("Insira a densidade detectada pelo sensor: "))
+f_sensor = float(input("Insira o ponto de fusão detectado: "))
+
+resultado = escanear_alcalinos(d_sensor, f_sensor)
+print(resultado)
