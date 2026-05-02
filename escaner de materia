@@ -28,3 +28,36 @@ f_sensor = float(input("Insira o ponto de fusão detectado: "))
 
 resultado = escanear_alcalinos(d_sensor, f_sensor)
 print(resultado)
+
+
+
+# Projeto: Escaner de Materia
+# Modulo: Identificacao de Metais Alcalinos (Grupo 1)
+# Objetivo: Detectar assinaturas de Li, Na, K, Rb, Cs, Fr
+
+class ScannerAlcalinos:
+    def __init__(self):
+        # Propriedades Fisicas: {Simbolo: (Densidade g/cm3, Ponto de Fusao C)}
+        self.elementos = {
+            "Litio": (0.534, 180.5),
+            "Sodio": (0.968, 97.7),
+            "Potassio": (0.890, 63.3),
+            "Rubidio": (1.532, 39.3),
+            "Cesio": (1.873, 28.4),
+            "Francio": (1.870, 27.0)
+        }
+
+    def analisar(self, d_detectada, f_detectada):
+        """
+        Compara os dados do sensor com o banco de dados atômico.
+        Usa uma margem de erro para simular sensores reais.
+        """
+        for nome, (dens, fus) in self.elementos.items():
+            # Margem de erro de 5%
+            margem_d = dens * 0.05
+            margem_f = fus * 0.05
+            
+            if abs(dens - d_detectada) <= margem_d and abs(fus - f_detectada) <= margem_f:
+                return f"[INFO] Matéria Identificada: {nome} | Grupo: Metal Alcalino"
+        
+        return None # Retorna nada se não encontrar neste grupo
